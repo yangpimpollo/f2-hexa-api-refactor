@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use yangpimpollo\L3_infrastructure\Controllers\HelloWorldController;
 use yangpimpollo\L3_infrastructure\Controllers\Auth\LoginController;
 use yangpimpollo\L3_infrastructure\Controllers\Auth\LogoutController;
+use yangpimpollo\L3_infrastructure\Controllers\Customer\ShowCustomerController;
+use yangpimpollo\L3_infrastructure\Controllers\Customer\StoreCustomerController;
 
 
 
@@ -16,6 +18,28 @@ Route::prefix('auth')->group(function () {
     Route::post('/login', LoginController::class);
     Route::post('/logout', logoutController::class)->middleware('auth:sanctum');
 });
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::prefix('client')->group(function () {
+        Route::get('/search-customer/{id}', [ShowCustomerController::class, 'show']);
+        Route::post('/store-customer', [StoreCustomerController::class, 'store']);
+    });
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 use Illuminate\Support\Facades\Hash;
