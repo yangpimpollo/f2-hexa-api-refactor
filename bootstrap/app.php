@@ -4,8 +4,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
+use yangpimpollo\L1_domain\Exceptions\my_customer_Exception;
 use yangpimpollo\L1_domain\Exceptions\my_login_error_Exception;
-
+use yangpimpollo\L1_domain\Exceptions\my_invalid_dni_Exception;
 
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -25,4 +26,26 @@ return Application::configure(basePath: dirname(__DIR__))
                 'mensaje' => $e->getMessage()
             ], 400);
         });
+
+        $exceptions->render(function (my_invalid_dni_Exception $e) {
+            return response()->json([
+                'status' => '🐦 error_de_dominio',
+                'mensaje' => $e->getMessage()
+            ], 400);
+        });
+
+        $exceptions->render(function (my_customer_Exception $e) {
+            return response()->json([
+                'status' => '🐦 error_de_dominio',
+                'mensaje' => $e->getMessage()
+            ], 400);
+        });
+
+
+
+
+
+
+
+
     })->create();

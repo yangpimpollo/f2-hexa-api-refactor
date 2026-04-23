@@ -12,7 +12,11 @@ class ShowCustomerController{
     use ApiResponse;
     public function __construct( private ShowCustomerUseCase $ShowCustomerUseCase ) {}
 
+    /**
+     * Buscar Cliente
+     */
     public function __invoke(string $dniValue){
-        return $this->ShowCustomerUseCase->execute($dniValue);
+        $data = $this->ShowCustomerUseCase->execute($dniValue)->toArray();
+        return $this->success($data, '¡Cliente encontrado! ... 🙋‍♂️', 200);
     }
 }

@@ -8,5 +8,5 @@ use yangpimpollo\L1_domain\ValueObjects\dni;
 interface CustomerRepositoryInterface
 {
     public function show(dni $dni): ?Customer;
-    public function store(Customer $customer): void;
+    public function store(Customer $customer): array;
 }

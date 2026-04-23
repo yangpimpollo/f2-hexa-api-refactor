@@ -21,4 +21,15 @@ class Customer
     public function getLastname(): string { return $this->lastname; }
     public function getPhone(): string { return $this->phone->value(); }
     public function getCreatedAt(): DateTimeImmutable { return $this->createdAt; }
+
+    public function toArray(): array {
+        return [
+            'dni' => $this->getDni(),
+            'firstname' => $this->getFirstname(),
+            'lastname' => $this->getLastname(),
+            'phone' => $this->getPhone(),
+            'created_at' => $this->getCreatedAt()->format('Y-m-d H:i:s'),
+        ];
+    }
+
 }

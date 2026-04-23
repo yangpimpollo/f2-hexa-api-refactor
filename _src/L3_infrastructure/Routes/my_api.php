@@ -21,10 +21,10 @@ Route::prefix('auth')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::prefix('client')->group(function () {
-        Route::get('/search-customer/{id}', [ShowCustomerController::class, 'show']);
-        Route::post('/store-customer', [StoreCustomerController::class, 'store']);
-    });
+    //Route::prefix('client')->group(function () {
+        Route::get('/search-customer/{id}', ShowCustomerController::class);
+        Route::post('/store-customer', StoreCustomerController::class);
+    //});
 
 
 
@@ -32,6 +32,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
+Route::get('/bbb', function () {
+
+    return "bbb";
+
+});
 
 
 
