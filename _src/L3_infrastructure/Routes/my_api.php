@@ -9,6 +9,7 @@ use yangpimpollo\L3_infrastructure\Controllers\Auth\LoginController;
 use yangpimpollo\L3_infrastructure\Controllers\Auth\LogoutController;
 use yangpimpollo\L3_infrastructure\Controllers\Customer\ShowCustomerController;
 use yangpimpollo\L3_infrastructure\Controllers\Customer\StoreCustomerController;
+use yangpimpollo\L3_infrastructure\Controllers\Product\SearchProductController;
 
 
 
@@ -21,10 +22,14 @@ Route::prefix('auth')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    //Route::prefix('client')->group(function () {
+    Route::prefix('client')->group(function () {
         Route::get('/search-customer/{id}', ShowCustomerController::class);
         Route::post('/store-customer', StoreCustomerController::class);
-    //});
+    });
+
+    Route::prefix('product')->group(function () {
+        Route::get('/search', SearchProductController::class);
+    });
 
 
 
