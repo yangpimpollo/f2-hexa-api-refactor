@@ -7,6 +7,8 @@ use Illuminate\Foundation\Configuration\Middleware;
 use yangpimpollo\L1_domain\Exceptions\my_customer_Exception;
 use yangpimpollo\L1_domain\Exceptions\my_login_error_Exception;
 use yangpimpollo\L1_domain\Exceptions\my_invalid_dni_Exception;
+use yangpimpollo\L1_domain\Exceptions\my_order_Exception;
+use yangpimpollo\L1_domain\Exceptions\my_product_Exception;
 
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -20,6 +22,8 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+
+
         $exceptions->render(function (my_login_error_Exception $e) {
             return response()->json([
                 'status' => '🐦 error_de_dominio',
@@ -35,6 +39,20 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         $exceptions->render(function (my_customer_Exception $e) {
+            return response()->json([
+                'status' => '🐦 error_de_dominio',
+                'mensaje' => $e->getMessage()
+            ], 400);
+        });
+
+        $exceptions->render(function (my_order_Exception $e) {
+            return response()->json([
+                'status' => '🐦 error_de_dominio',
+                'mensaje' => $e->getMessage()
+            ], 400);
+        });
+
+        $exceptions->render(function (my_product_Exception $e) {
             return response()->json([
                 'status' => '🐦 error_de_dominio',
                 'mensaje' => $e->getMessage()

@@ -40,21 +40,20 @@ class StoreOrderUseCase
 
             if ($product->stock < $itemDto->quantity) {
                 throw my_order_Exception::insufficient_stock(
-                    $itemDto->productId, 
-                    $product->stock, 
-                    $itemDto->quantity
+                    $product->product_id,
+                    $product->product_name,
+                    $product->stock
                 );
             }
 
             $order->addItem(new OrderItem(
                 $itemDto->productId,
                 $itemDto->quantity,
-                (float) $product->product_price, // Precio oficial de la DB
+                (float) $product->product_price, // recordar que product es un row  XD (array)
                 $itemDto->discount
             ));
         }
 
-        // 4. Guardamos la orden completa
-        $this->repository->store($order);
+        return $this->repository->store($order);
     }
 }

@@ -35,4 +35,9 @@ class my_order_Exception extends Exception
     {
         return new self("🙄 El descuento no es válido. Debe estar entre 0 y 1.");
     }
+
+    public static function insufficient_stock(string $productId, string $productName, int $stock): self
+    {
+        return new self("🙄 el producto ' $productId ': ' $productName ' solo tiene ' $stock ' unidades en stock.");
+    }
 }

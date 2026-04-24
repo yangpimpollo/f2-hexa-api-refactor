@@ -1,6 +1,6 @@
 <?php
 
-namespace yangpimpollo\L3_infrastructure\Controllers\Order;
+namespace yangpimpollo\L3_infrastructure\Persistence\Order;
 
 use Illuminate\Support\Facades\DB;
 

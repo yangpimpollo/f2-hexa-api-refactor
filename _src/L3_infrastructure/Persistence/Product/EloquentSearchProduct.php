@@ -7,7 +7,7 @@ use yangpimpollo\L1_domain\Repository\ProductRepositoryInterface;
 
 class EloquentSearchProduct implements ProductRepositoryInterface
 {
-    public function index(string $query, string $storeId): array
+    public function index(string $query, string $storeId): ?array
     {
         $sql = "SELECT p.product_id, p.product_name, p.product_price, i.quantity as stock
                 FROM products p
@@ -25,7 +25,7 @@ class EloquentSearchProduct implements ProductRepositoryInterface
         return DB::select($sql, $bindings);
     }
 
-    public function show(string $productId, string $storeId): ?object
+    public function show(string $productId, string $storeId): ?array
     {
         $sql = "SELECT p.product_id, p.product_name, p.product_price, i.quantity as stock 
             FROM products p
@@ -37,7 +37,10 @@ class EloquentSearchProduct implements ProductRepositoryInterface
         $bindings = [$productId, $storeId];
 
         $row = DB::selectOne($sql,$bindings);
-        return $row;
+        if (!$row) return null;
+        
+        
+        return (array) $row;
     }
 
 }

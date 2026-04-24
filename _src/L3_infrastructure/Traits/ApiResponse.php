@@ -5,7 +5,7 @@ namespace yangpimpollo\L3_infrastructure\Traits;
 use Illuminate\Http\JsonResponse;
 
 trait ApiResponse {
-    protected function success($data, string $message = 'Operación exitosa', int $code = 200): JsonResponse {
+    protected function success(mixed $data, string $message = 'Operación exitosa', int $code = 200): JsonResponse {
         return response()->json([
             'status' => 'success ✅',
             'message' => $message,

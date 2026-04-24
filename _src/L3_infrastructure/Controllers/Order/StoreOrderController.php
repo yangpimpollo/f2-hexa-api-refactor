@@ -19,6 +19,15 @@ class StoreOrderController
 
     public function __invoke(Request $request)
     {
+        // $request->validate([
+        //     'customer_dni' => 'required|string',
+        //     'items' => 'required|array|min:1',
+        //     'items.*.product_id' => 'required|string',
+        //     'items.*.quantity' => 'required|integer|min:1',
+        //     'items.*.discount' => 'nullable|numeric|min:0',
+        // ]);
+
+
         $itemsDto = array_map(fn($item) => new OrderItemDto(
             $item['product_id'],
             $item['quantity'],
@@ -32,7 +41,8 @@ class StoreOrderController
             $itemsDto
         );
 
-        $data = $this->storeOrderUseCase->execute($dto);
+        //$data = $this->storeOrderUseCase->execute($dto);
+        $data=null;
         return $this->success($data, 'orden registrada! 🏎️', 201);
     }
 }

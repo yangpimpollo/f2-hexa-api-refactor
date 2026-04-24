@@ -20,10 +20,10 @@ class LoginController
      */
     public function __invoke(Request $request)
     {
-        $request->validate([ 
-            'username' => 'required|string', 
-            'password' => 'required|string'
-        ]);
+        // $request->validate([ 
+        //     'username' => 'required|string', 
+        //     'password' => 'required|string'
+        // ]);
 
         $dto = new LoginDto( $request->input('username'), $request->input('password') );
 
