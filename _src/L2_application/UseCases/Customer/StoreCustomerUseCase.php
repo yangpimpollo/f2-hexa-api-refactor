@@ -18,9 +18,12 @@ class StoreCustomerUseCase
 
     public function execute(CustomerDto $dto): array
     {
-        if ($this->repository->show(new dni($dto->dni))) {
+        if (!$dto->dni || !$dto->firstname || !$dto->lastname || !$dto->phone) 
+            throw my_customer_Exception::empty_fields();
+
+        if ($this->repository->show(new dni($dto->dni)))
             throw my_customer_Exception::customer_already_exists();
-        }
+        
 
         $customer = new Customer(
             new dni($dto->dni),

@@ -6,6 +6,10 @@ use Exception;
 
 class my_login_error_Exception extends Exception
 {
+    public static function empty_fields(): self
+    {
+        return new self("Detecto un vacío existencial en este formulario... 🕵️‍♂️🔍, rellena todo los campos");
+    }
     public static function user_not_found(): self
     {
         return new self("¡Vaya! No pudimos encontrar a quien buscas. 🕵️‍♂️🔍 ¿Seguro que escribiste bien el nombre?");

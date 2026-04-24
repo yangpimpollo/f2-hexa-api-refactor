@@ -25,4 +25,19 @@ class EloquentSearchProduct implements ProductRepositoryInterface
         return DB::select($sql, $bindings);
     }
 
+    public function show(string $productId, string $storeId): ?object
+    {
+        $sql = "SELECT p.product_id, p.product_name, p.product_price, i.quantity as stock 
+            FROM products p
+            JOIN inventories i ON p.product_id = i.product_id
+            WHERE p.product_id = :productId 
+            AND i.store_id = :storeId";
+
+        
+        $bindings = [$productId, $storeId];
+
+        $row = DB::selectOne($sql,$bindings);
+        return $row;
+    }
+
 }

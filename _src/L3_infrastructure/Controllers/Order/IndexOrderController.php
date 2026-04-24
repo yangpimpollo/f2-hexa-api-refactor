@@ -10,13 +10,13 @@ class IndexOrderController
 {
     use ApiResponse;
 
-    public function __construct( private IndexOrderUseCase $indexOrderUseCase ) {}
+    // public function __construct( private IndexOrderUseCase $indexOrderUseCase ) {}
 
     public function __invoke(Request $request)
     {
-        $storeId = $request->user()->store_id;
-        $orders = $this->indexOrderUseCase->execute($storeId);
 
-        return $this->success($orders, 'todas las ordenes', 200);
+
+        $data = null;
+        return $this->success($data, 'index order controller! 🏎️', 200);
     }
 }

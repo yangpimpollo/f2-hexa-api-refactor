@@ -4,6 +4,7 @@ namespace yangpimpollo\L2_application\UseCases\Order;
 
 use yangpimpollo\L1_domain\Entity\Order;
 use yangpimpollo\L1_domain\Entity\OrderItem;
+use yangpimpollo\L1_domain\Exceptions\my_product_Exception;
 use yangpimpollo\L1_domain\Repository\OrderRepositoryInterface;
 use yangpimpollo\L1_domain\Repository\ProductRepositoryInterface;
 use yangpimpollo\L1_domain\ValueObjects\dni;
@@ -18,12 +19,10 @@ class StoreOrderUseCase
         private readonly ProductRepositoryInterface $productRepository
     ) {}
 
-    public function execute(OrderDto $dto): void
+    public function execute(OrderDto $dto): array
     {
-        // 1. Generamos un ID único para la orden (String)
         $orderId = 'ORD-' . strtoupper(Str::random(8));
 
-        // 2. Creamos el Agregado Raíz (Order)
         $order = new Order(
             $orderId,
             new dni($dto->customerDni),
@@ -31,13 +30,20 @@ class StoreOrderUseCase
             $dto->staffId
         );
 
-        // 3. Añadimos los items a la orden buscando su precio oficial
         foreach ($dto->items as $itemDto) {
             
-            $product = $this->productRepository->show($itemDto->productId);
+            $product = $this->productRepository->show($itemDto->productId, $dto->storeId);
 
             if (!$product) {
-                throw new Exception("El producto con ID {$itemDto->productId} no existe.");
+                throw my_product_Exception::empty_product($itemDto->productId);
+            }
+
+            if ($product->stock < $itemDto->quantity) {
+                throw my_order_Exception::insufficient_stock(
+                    $itemDto->productId, 
+                    $product->stock, 
+                    $itemDto->quantity
+                );
             }
 
             $order->addItem(new OrderItem(

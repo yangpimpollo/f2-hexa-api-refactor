@@ -16,24 +16,27 @@ class EloquentOrder implements OrderRepositoryInterface
         private StoreOrder $storeOrder,
     ) {}
 
-    public function show($id)
-    {
-        return $this->showOrder->execute($id);
-    }
-
     public function index(string $storeId): array
     {
-        return $this->indexOrder->execute($storeId);
+        //return $this->showOrder->execute($id);
+        return null;
     }
 
-    public function store(Order $order)
+    public function store(Order $order): array
     {
-        return $this->storeOrder->execute($order);
+        return $this->StoreOrder->execute($order);
     }
 
-    public function delete($id)
+    public function show(string $orderId): ?Order
     {
-        return $this->deleteOrder->execute($id);
+        //return $this->storeOrder->execute($order);
+        return null;
+    }
+
+    public function delete(string $orderId): array
+    {
+        //return $this->deleteOrder->execute($id);
+        return null;
     }
 
 

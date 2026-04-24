@@ -19,15 +19,20 @@ class StoreCustomerController{
      */
     public function __invoke(Request $request){
 
-        // 1° validación que sea requerido
-        $validated = $request->validate([
+        //1° validación que sea requerido
+        $request->validate([
             'dni'       => 'required|string',
             'firstname' => 'required|string',
             'lastname'  => 'required|string',
             'phone'     => 'required|string',
         ]);
 
-        $dto = new CustomerDto(...$validated);
+        $dto = new CustomerDto(
+            $request->input('dni'),
+            $request->input('firstname'),
+            $request->input('lastname'),
+            $request->input('phone')
+        );
 
         $data = $this->storeCustomerUseCase->execute($dto);
 

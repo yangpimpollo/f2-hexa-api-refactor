@@ -11,12 +11,11 @@ class ShowOrderController
 {
     use ApiResponse;
 
-    public function __construct( private ShowOrderUseCase $showOrderUseCase ) {}
+    // public function __construct( private ShowOrderUseCase $showOrderUseCase ) {}
 
     public function __invoke(Request $request)
     {
-        $orderId = $request->route('orderId');
-        $order = $this->showOrderUseCase->execute($orderId);
-        return $this->successResponse($order);
+        $data = null;
+        return $this->success($data, 'show order controller! 🏎️', 200);
     }
 }

@@ -16,6 +16,11 @@ class LoginUseCase {
 
     public function execute(LoginDto $dto)
     {
+        if (empty($dto->username) || empty($dto->password))
+            throw my_login_error_Exception::empty_fields();
+        
+
+        
         $value = $this->repository->login($dto->username, $dto->password);
 
         if ($value == "code - null") throw my_login_error_Exception::user_not_found();

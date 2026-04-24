@@ -10,11 +10,12 @@ class DeleteOrderController
 {
     use ApiResponse;
 
-    public function __construct( private DeleteOrderUseCase $indexOrderUseCase ) {}
+    // public function __construct( private DeleteOrderUseCase $indexOrderUseCase ) {}
 
     public function __invoke(Request $request)
     {
-        $orderId = $request->route('orderId');
-        $this->indexOrderUseCase->execute($orderId);
+
+        $data = null;
+        return $this->success($data, 'delete order controller! 🏎️', 200);
     }
 }
